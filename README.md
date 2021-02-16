@@ -22,9 +22,6 @@ python run_example.py --render 1
 目标采用双重积分动力学模型，使用卡尔曼滤波作为估计器。每个目标的状态为 $ (x,y,\dot x, \dot y) $ 。
 
 
-## Metadata
-Some metadata examples for the environment setup are presented in ttenv/ttenv/metatdata.py.
-
 ## 代码结构
 
 + init.py: 环境接口
