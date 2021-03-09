@@ -55,7 +55,7 @@ METADATA_multi_v1={
         'ang_dist_range_a2b':(-np.pi, np.pi),  # 智能体到目标的初始角度范围
         'lin_dist_range_b2t':(0.0, 10.0),
         'ang_dist_range_b2t':(-np.pi/2, np.pi/2),
-        'margin': 1.0, # a marginal distance btw targets and the agent.
+        'margin': 1.0, # 智能体与目标之间的 marginal distance
         'margin2wall': 1.0, # a marginal distance from a wall.
         'action_v': [3, 2, 1, 0], # 动作，线速度取值
         'action_w': [np.pi/2, 0, -np.pi/2], # 动作，角速度取值

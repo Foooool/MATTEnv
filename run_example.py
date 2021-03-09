@@ -1,4 +1,4 @@
-import ttenv
+import mattenv
 import numpy as np
 import argparse
 
@@ -14,13 +14,13 @@ parser.add_argument('--map', type=str, default="empty")
 parser.add_argument('--repeat', type=int, default=1)
 parser.add_argument('--im_size', type=int, default=28)
 parser.add_argument('--seed', type=int, default=0)
-# args = parser.parse_args()
-args = parser.parse_args(['--render', '1'])
+args = parser.parse_args()
+# args = parser.parse_args(['--render', '1'])
 
 
 def main():
     # 创建环境
-    env = ttenv.make(args.env,
+    env = mattenv.make(args.env,
                     render=args.render,
                     record=args.record,
                     ros=args.ros,
@@ -31,12 +31,12 @@ def main():
                     is_training=False,
                     im_size=args.im_size,
                     )
-    np.random.seed(args.seed)
 
     for _ in range(args.repeat):  # for each episode
         nlogdetcov = []
-        obs, done = env.reset(), False
-        while(not done):
+        env.reset()
+        done = False
+        while not done:
             # 渲染
             if args.render:
                 env.render()
@@ -47,7 +47,7 @@ def main():
             # 记录平均 log det 协方差
             nlogdetcov.append(info['mean_nlogdetcov'])
 
-        print("Sum of negative logdet of the target belief covariances : %.2f"%np.sum(nlogdetcov))
+        print("Sum of negative logdet of the target belief covariances : {:.2f}".format(np.sum(nlogdetcov)))
 
 if __name__ == "__main__":
     main()

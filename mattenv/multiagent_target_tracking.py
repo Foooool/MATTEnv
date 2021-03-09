@@ -11,9 +11,16 @@ import ttenv.util as util
 
 
 class MultiAgentTargetTrackingEnv1(MultiAgentTargetTrackingBase):
-    def __init__(self, num_agents=2, num_targets=1, map_name='empty', is_training=True, known_noise=True, **kwargs):
+    def __init__(self,
+                 num_agents=2,
+                 num_targets=1,
+                 map_name='empty',
+                 is_training=True,
+                 known_noise=True,
+                 **kwargs):
         MultiAgentTargetTrackingBase.__init__(self, num_agents=num_agents, num_targets=num_targets, map_name=map_name,
                                               is_training=is_training, known_noise=known_noise, **kwargs)
+        # 
         self.id = 'TargetTracking-v1'
         self.target_dim = 4
         self.target_init_vel = np.array(METADATA['target_init_vel'])
@@ -110,8 +117,8 @@ class MultiAgentTargetTrackingEnv1(MultiAgentTargetTrackingBase):
             METADATA['action_v'][0]  # Maximum relative speed
 
         self.limit = {}  # 0: low, 1:highs
-        self.limit['agent'] = [np.concatenate(
-            (self.MAP.mapmin, [-np.pi])), np.concatenate((self.MAP.mapmax, [np.pi]))]
+        self.limit['agent'] = [np.concatenate((self.MAP.mapmin, [-np.pi])),
+                               np.concatenate((self.MAP.mapmax, [np.pi]))]
         self.limit['target'] = [np.concatenate((self.MAP.mapmin, [-self.target_speed_limit, -self.target_speed_limit])),
                                 np.concatenate((self.MAP.mapmax, [self.target_speed_limit, self.target_speed_limit]))]
         self.limit['state'] = [np.concatenate(([0.0, -np.pi, -rel_speed_limit, -10*np.pi, -50.0, 0.0]*self.num_targets, [0.0, -np.pi])),
@@ -128,8 +135,11 @@ class MultiAgentTargetTrackingEnv1(MultiAgentTargetTrackingBase):
             self.const_q = const_q
 
         # 创建智能体
-        self.agents = [AgentSE2(dim=3, sampling_period=self.sampling_period, limit=self.limit['agent'],
-                                collision_func=lambda x: self.MAP.is_collision(x)) for _ in range(self.num_agents)]
+        self.agents = [AgentSE2(dim=3,
+                                sampling_period=self.sampling_period,
+                                limit=self.limit['agent'],
+                                collision_func=self.MAP.is_collision)
+                       for _ in range(self.num_agents)]
 
         # 创建目标
         self.targetA = np.concatenate((np.concatenate((np.eye(2),
@@ -151,7 +161,7 @@ class MultiAgentTargetTrackingEnv1(MultiAgentTargetTrackingBase):
 
         self.targets = [AgentDoubleInt2D_Nonlinear(self.target_dim,
                                                    self.sampling_period, self.limit['target'],
-                                                   lambda x: self.MAP.is_collision(x),
+                                                   self.MAP.is_collision,
                                                    W=self.target_true_noise_sd, A=self.targetA,
                                                    obs_check_func=lambda x: self.MAP.get_closest_obstacle(
                                                        x, fov=2*np.pi, r_max=10e2))
