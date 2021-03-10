@@ -34,7 +34,7 @@ class TargetTrackingEnv4(TargetTrackingEnv1):
         self.observation_space = spaces.Box(
             np.concatenate((-np.ones(self.im_size*self.im_size,), self.limit['state'][0])),
             np.concatenate((np.ones(self.im_size*self.im_size,), self.limit['state'][1])),
-            dtype=np.float32)
+            dtype=np.float)
 
     def reset(self, **kwargs):
         _ = super().reset(**kwargs)
@@ -74,7 +74,7 @@ class TargetTrackingEnv5(TargetTrackingEnv4):
         self.observation_space = spaces.Box(
             np.concatenate((-np.ones(5*self.im_size*self.im_size,), self.limit['state'][0])),
             np.concatenate((np.ones(5*self.im_size*self.im_size,), self.limit['state'][1])),
-            dtype=np.float32)
+            dtype=np.float)
 
     def map_state_func(self):
         # Update the visit frequency map.

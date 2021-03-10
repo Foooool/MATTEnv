@@ -22,11 +22,11 @@ def round(x):
 
 class GridMap(object):
     def __init__(self, map_path, margin2wall=0.5):
-        map_config = yaml.load(open(map_path+".yaml", "r"))
-        self.map = np.loadtxt(map_path+".cfg")
+        map_config = yaml.load(open(map_path+".yaml", "r"), Loader=yaml.FullLoader)
         if 'empty' in map_path:
             self.map = None
         else:
+            self.map = np.loadtxt(map_path+".cfg")
             self.map_linear = np.squeeze(
                 self.map.astype(np.int8).reshape(-1, 1))
         self.mapdim = map_config['mapdim']

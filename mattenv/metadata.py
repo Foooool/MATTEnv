@@ -25,7 +25,7 @@ METADATA_v1={
         'version' : 1,
         'sampling_period': 0.5,  # 采样间隔 (秒)
         'sensor_r': 50.0,
-        'fov' : 120,
+        'fov' : 120,  # 传感器角度范围
         'sensor_r_sd': 0.2, # sensor range noise.
         'sensor_b_sd': 0.01, # sensor bearing noise.
         'target_init_cov': 30.0, # initial target diagonal Covariance.

@@ -137,7 +137,7 @@ class MultiAgentTargetTrackingEnv1(MultiAgentTargetTrackingBase):
         self.limit['observation'] = [np.array([0.0, -np.pi, -rel_speed_limit, -10*np.pi, -50.0, 0.0]*self.num_targets),
                                      np.array([600.0, np.pi, rel_speed_limit, 10*np.pi,  50.0, 2.0]*self.num_targets)]
         self.observation_space = spaces.Box(
-            self.limit['observation'][0], self.limit['observation'][1], dtype=np.float32)
+            self.limit['observation'][0], self.limit['observation'][1], dtype=np.float)
         assert(len(self.limit['observation'][0]) == (self.num_target_dep_vars * self.num_targets + self.num_target_indep_vars))
 
     def initialize_models(self):

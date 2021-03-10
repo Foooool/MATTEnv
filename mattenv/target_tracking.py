@@ -115,7 +115,7 @@ class TargetTrackingEnv0(TargetTrackingBase):
         self.limit['target'] = [self.MAP.mapmin, self.MAP.mapmax]
         self.limit['state'] = [np.concatenate(([0.0, -np.pi, -50.0, 0.0]*self.num_targets, [0.0, -np.pi ])),
                                np.concatenate(([600.0, np.pi, 50.0, 2.0]*self.num_targets, [self.sensor_r, np.pi]))]
-        self.observation_space = spaces.Box(self.limit['state'][0], self.limit['state'][1], dtype=np.float32)
+        self.observation_space = spaces.Box(self.limit['state'][0], self.limit['state'][1], dtype=np.float)
         assert(len(self.limit['state'][0]) == (self.num_target_dep_vars * self.num_targets + self.num_target_indep_vars))
 
     def build_models(self, const_q=None, known_noise=True, **kwargs):
@@ -230,7 +230,7 @@ class TargetTrackingEnv1(TargetTrackingBase):
                                 np.concatenate((self.MAP.mapmax, [self.target_speed_limit, self.target_speed_limit]))]
         self.limit['state'] = [np.concatenate(([0.0, -np.pi, -rel_speed_limit, -10*np.pi, -50.0, 0.0]*self.num_targets, [0.0, -np.pi])),
                                np.concatenate(([600.0, np.pi, rel_speed_limit, 10*np.pi,  50.0, 2.0]*self.num_targets, [self.sensor_r, np.pi]))]
-        self.observation_space = spaces.Box(self.limit['state'][0], self.limit['state'][1], dtype=np.float32)
+        self.observation_space = spaces.Box(self.limit['state'][0], self.limit['state'][1], dtype=np.float)
         assert(len(self.limit['state'][0]) == (self.num_target_dep_vars * self.num_targets + self.num_target_indep_vars))
 
     def build_models(self, const_q=None, known_noise=True, **kwargs):
@@ -302,7 +302,7 @@ class TargetTrackingEnv2(TargetTrackingEnv0):
         self.limit['target'] = [np.concatenate((self.MAP.mapmin, [-np.pi])), np.concatenate((self.MAP.mapmax, [np.pi]))]
         self.limit['state'] = [np.concatenate(([0.0, -np.pi, -50.0, 0.0]*self.num_targets, [0.0, -np.pi ])),
                                np.concatenate(([600.0, np.pi, 50.0, 2.0]*self.num_targets, [self.sensor_r, np.pi]))]
-        self.observation_space = spaces.Box(self.limit['state'][0], self.limit['state'][1], dtype=np.float32)
+        self.observation_space = spaces.Box(self.limit['state'][0], self.limit['state'][1], dtype=np.float)
         assert(len(self.limit['state'][0]) == (self.num_target_dep_vars * self.num_targets + self.num_target_indep_vars))
 
     def build_models(self, const_q=None, known_noise=True, **kwargs):
@@ -372,7 +372,7 @@ class TargetTrackingEnv3(TargetTrackingBase):
                                             np.concatenate((self.MAP.mapmax, [np.pi, self.target_speed_limit, np.pi]))]
         self.limit['state'] = [np.concatenate(([0.0, -np.pi, -rel_speed_limit, -10*np.pi, -50.0, 0.0]*self.num_targets, [0.0, -np.pi ])),
                                np.concatenate(([600.0, np.pi, rel_speed_limit, 10*np.pi, 50.0, 2.0]*self.num_targets, [self.sensor_r, np.pi]))]
-        self.observation_space = spaces.Box(self.limit['state'][0], self.limit['state'][1], dtype=np.float32)
+        self.observation_space = spaces.Box(self.limit['state'][0], self.limit['state'][1], dtype=np.float)
 
     def build_models(self, const_q=None, known_noise=True, **kwargs):
         if self.target_dim != 5:

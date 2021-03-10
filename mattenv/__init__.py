@@ -11,7 +11,6 @@ def make(env_name,
          known_noise=True,
          max_episode_steps=1000,
          render=False,
-         figID=0,
          local_view=0,
          ros=False,
          record=False,
@@ -76,7 +75,7 @@ def make(env_name,
 
     if render:
         from mattenv.display_wrapper import Display2D
-        env = Display2D(env, figID=figID, local_view=local_view)
+        env = Display2D(env, local_view=local_view)
         
     if record:
         from mattenv.display_wrapper import Video2D

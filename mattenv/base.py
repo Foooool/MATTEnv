@@ -23,6 +23,7 @@ class MultiAgentTargetTrackingBase(gym.Env):
                  map_name='empty',
                  seed=None,
                  reward_function=None,
+                 im_size=28,
                  **kwargs):
         """多智能体目标追踪环境基类
 
@@ -92,6 +93,7 @@ class MultiAgentTargetTrackingBase(gym.Env):
             self.reward_function = reward_function
 
         self.last_actions = [[0, 0] for _ in range(self.num_agents)]
+        self.im_size = im_size
 
     def reset(self, **kwargs):
         """重置环境
