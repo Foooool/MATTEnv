@@ -13,9 +13,10 @@ parser.add_argument('--log_dir', help='a path to a directory to log your data', 
 parser.add_argument('--map', type=str, default="empty")
 parser.add_argument('--repeat', type=int, default=1)
 parser.add_argument('--im_size', type=int, default=28)
+parser.add_argument('--max_episode_steps', type=int, default=1000)
 parser.add_argument('--seed', type=int, default=0)
-args = parser.parse_args()
-# args = parser.parse_args(['--render', '1'])
+# args = parser.parse_args()
+args = parser.parse_args(['--render', '1'])
 
 
 def main():
@@ -30,24 +31,25 @@ def main():
                     num_agents=args.nb_agents,
                     is_training=False,
                     im_size=args.im_size,
+                    max_episode_steps=args.max_episode_steps
                     )
 
     for _ in range(args.repeat):  # for each episode
-        nlogdetcov = []
         env.reset()
         done = False
-        while not done:
+        step_counter = 0
+        while not done and step_counter < 1000:
             # 渲染
             if args.render:
                 env.render()
             
             # 执行动作
-            obs, rew, done, info = env.step([env.action_space.sample() for _ in range(args.nb_agents)])
+            _, rew, done, _ = env.step([env.action_space.sample() for _ in range(args.nb_agents)])
 
-            # 记录平均 log det 协方差
-            nlogdetcov.append(info['mean_nlogdetcov'])
+            # reward
+            print('Step {}, reward {}'.format(step_counter, rew))
 
-        print("Sum of negative logdet of the target belief covariances : {:.2f}".format(np.sum(nlogdetcov)))
+            step_counter += 1
 
 if __name__ == "__main__":
     main()

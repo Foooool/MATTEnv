@@ -3,8 +3,8 @@ import os
 import yaml
 from skimage.transform import rotate
 
-from ttenv.maps.map_utils import GridMap
-import ttenv.util as util
+from mattenv.maps.map_utils import GridMap
+import mattenv.util as util
 
 class DynamicMap(GridMap):
     def __init__(self, map_dir_path, map_name, margin2wall=0.5):

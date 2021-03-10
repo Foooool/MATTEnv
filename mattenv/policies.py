@@ -1,6 +1,6 @@
 # Control policies
 import numpy as np
-import ttenv.util as util
+import mattenv.util as util
 
 
 class RandomPolicy():

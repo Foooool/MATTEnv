@@ -3,7 +3,7 @@ This binding file was modified from the original file in https://bitbucket.org/b
 for this target tracking environment.
 """
 import numpy as np
-import ttenv.infoplanner_python as infoplanner
+import mattenv.infoplanner_python as infoplanner
 
 # Example target locations
 '''

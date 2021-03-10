@@ -1,15 +1,16 @@
 import os
 from random import shuffle
+
 import matplotlib
 from matplotlib import animation
 from matplotlib import patches
 import matplotlib.colors as mcolors
 from matplotlib import pyplot as plt
-from gym import Wrapper
 import numpy as np
 from numpy import linalg as LA
+from gym import Wrapper
 
-from ttenv.metadata import METADATA
+from mattenv.metadata import METADATA
 
 
 matplotlib.use('TkAgg')
@@ -37,7 +38,6 @@ class Display2D(Wrapper):
         # 颜色列表
         self.colors = [key for key, _ in mcolors.CSS4_COLORS.items()]
         shuffle(self.colors)
-
 
     def close(self):
         plt.close(self.fig)
@@ -167,7 +167,7 @@ class Display2D(Wrapper):
             ax.text(self.mapmax[0]+1., self.mapmax[1]-5., 'v_target:%.2f' %
                     np.sqrt(np.sum(self.env_core.targets[0].state[2:]**2)))
             ax.text(self.mapmax[0]+1., self.mapmax[1]-10.,
-                    'v_agent:%.2f' % self.env_core.agents[0].vw[0])
+                    'v_agent:%.2f' % self.env_core.last_actions[0][0])
             ax.set_xlim((self.mapmin[0], self.mapmax[0]))
             ax.set_ylim((self.mapmin[1], self.mapmax[1]))
             ax.set_title("Trajectory %d" % self.traj_num)

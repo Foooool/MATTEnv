@@ -1,72 +1,85 @@
 from gym.wrappers import TimeLimit
-from ttenv.multiagent_target_tracking import MultiAgentTargetTrackingEnv1
+from mattenv.multiagent_target_tracking import MultiAgentTargetTrackingEnv1
 
 
 def make(env_name,
-         num_targets=1,
          num_agents=1,
+         num_targets=1,
+         map_name='empty',
+         seed=None,
+         reward_function=None,
+         known_noise=True,
+         max_episode_steps=1000,
          render=False,
          figID=0,
-         record=False,
+         local_view=0,
          ros=False,
-         directory='',
-         max_episode_steps=1000,
-         seed=None,
+         record=False,
+         record_dir='.',
          **kwargs):
     """创建环境
 
     Parameters
     ----------
     env_name : str
-        name of an environment. (e.g. 'TargetTracking-v0')
-    render : bool
-        wether to render.
-    figID : int
-        figure ID for rendering and/or recording.
-    record : bool
-        whether to record a video.
-    ros : bool
-        whether to use ROS.
-    directory :str
-        a path to store a video file if record is True.
-    T_steps : int
-        the number of steps per episode.
-    num_targets : int
-        the number of targets
+        环境名称
+    num_agents : int, optional
+        智能体个数, by default 1
+    num_targets : int, optional
+        目标个数, by default 1
+    map_name : str, optional
+        环境地图名称, by default 'empty'
+    seed : int, optional
+        随机数种子, by default None
+    reward_function : callable, optional
+        回报函数, by default None
+    known_noise : bool, optional
+        是否已知方差, by default True
+    max_episode_steps : int, optional
+        每个 episode 最大步数, by default 1000
+    render : bool, optional
+        是否渲染, by default False
+    figID : int, optional
+        figid, by default 0
+    local_view : int, optional
+        是否显示局部视野, by default 0
+    ros : bool, optional
+        是否 Ros, by default False
+    record : bool, optional
+        是否保存视频, by default False
+    record_dir : str, optional
+        视频保存目录, by default '.'
 
-    Return
-    ------
-    Gym.Env
+    Returns
+    -------
+    gym.Env
+        环境对象
     """
-    local_view = 0
     if env_name == 'MultiAgentTargetTracking-v1':
         env0 = MultiAgentTargetTrackingEnv1(num_agents=num_agents,
                                             num_targets=num_targets,
+                                            map_name=map_name,
                                             seed=seed,
+                                            reward_function=reward_function,
+                                            known_noise=known_noise,
                                             **kwargs)
-    # elif env_name == 'TargetTracking-info1':
-    #     from ttenv.infoplanner_python.target_tracking_infoplanner import TargetTrackingInfoPlanner1
-    #     env0 = TargetTrackingInfoPlanner1(num_targets=num_targets, **kwargs)
-    # elif env_name == 'TargetTracking-info2':
-    #     from ttenv.infoplanner_python.target_tracking_infoplanner import TargetTrackingInfoPlanner2
-    #     env0 = TargetTrackingInfoPlanner2(num_targets=num_targets, **kwargs)
     else:
-        raise ValueError('没有这个环境')
+        raise ValueError('Env name 错误：没有这个环境')
 
     # Wrappers
     # 每个 episode 最大步数 wrapper
     env = TimeLimit(env0, max_episode_steps=max_episode_steps)
 
     if ros:
-        from ttenv.ros_wrapper import Ros
+        from mattenv.ros_wrapper import Ros
         env = Ros(env)
 
     if render:
-        from ttenv.display_wrapper import Display2D
+        from mattenv.display_wrapper import Display2D
         env = Display2D(env, figID=figID, local_view=local_view)
         
     if record:
-        from ttenv.display_wrapper import Video2D
-        env = Video2D(env, dirname=directory, local_view=local_view)
+        from mattenv.display_wrapper import Video2D
+        env = Video2D(env, dirname=record_dir, local_view=local_view)
 
     return env

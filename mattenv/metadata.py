@@ -23,7 +23,8 @@ METADATA_v0={
 
 METADATA_v1={
         'version' : 1,
-        'sensor_r': 10.0,
+        'sampling_period': 0.5,  # 采样间隔 (秒)
+        'sensor_r': 50.0,
         'fov' : 120,
         'sensor_r_sd': 0.2, # sensor range noise.
         'sensor_b_sd': 0.01, # sensor bearing noise.
@@ -44,23 +45,24 @@ METADATA_v1={
 
 METADATA_multi_v1={
         'version' : 'm1',
+        'sampling_period': 0.5,  # 采样间隔 (秒)
         'sensor_r': 10.0,
         'fov' : 120,
-        'sensor_r_sd': 0.2, # 距离传感器噪声
-        'sensor_b_sd': 0.01, # 方位传感器噪声
+        'sensor_r_sd': 0.2,  # 距离传感器噪声
+        'sensor_b_sd': 0.01,  # 方位传感器噪声
         'target_init_cov': 30.0, # initial target diagonal Covariance.
         'target_init_vel': [0.0, 0.0], # target's initial velocity.
-        'target_speed_limit': 1.0, # velocity limit of targets.
+        'target_speed_limit': 1.0,  # velocity limit of targets.
         'lin_dist_range_a2b':(5.0, 10.0),  # 智能体到目标的初始距离范围
         'ang_dist_range_a2b':(-np.pi, np.pi),  # 智能体到目标的初始角度范围
         'lin_dist_range_b2t':(0.0, 10.0),
         'ang_dist_range_b2t':(-np.pi/2, np.pi/2),
-        'margin': 1.0, # 智能体与目标之间的 marginal distance
-        'margin2wall': 1.0, # a marginal distance from a wall.
-        'action_v': [3, 2, 1, 0], # 动作，线速度取值
-        'action_w': [np.pi/2, 0, -np.pi/2], # 动作，角速度取值
-        'const_q': 0.2, # target noise constant in beliefs.
-        'const_q_true': 0.2, # target noise constant of actual targets.
+        'margin': 1.0,  # 智能体与目标之间的 marginal distance
+        'margin2wall': 1.0,  # a marginal distance from a wall.
+        'action_v': [3, 2, 1, 0],  # 动作，线速度取值
+        'action_w': [np.pi/2, 0, -np.pi/2],  # 动作，角速度取值
+        'const_q': 0.2,  # target noise constant in beliefs.
+        'const_q_true': 0.2,  # target noise constant of actual targets.
     }
 
 # Designate a metadata version to be used throughout the target tracking env.

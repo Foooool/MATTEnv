@@ -1,7 +1,8 @@
 import numpy as np
 from numpy import linalg as LA
 
-# Convention : VARIABLE_OBJECT_FRAME. If FRAME is omitted, it means it is with respect to the global frame.
+# Convention : VARIABLE_OBJECT_FRAME. 
+# If FRAME is omitted, it means it is with respect to the global frame.
 
 def wrap_around(x):
     """将 x 放入 [-pi, pi)"""

@@ -13,8 +13,8 @@
 """
 
 import numpy as np
-from ttenv.metadata import METADATA
-import ttenv.util as util
+from mattenv.metadata import METADATA
+import mattenv.util as util
 
 
 class Agent(object):
@@ -42,7 +42,7 @@ class Agent(object):
         margin : float, optional
             智能体与目标的间隔距离, by default METADATA['margin']
         """
-        self.state = init_state
+        self.state = np.array(init_state)
         self.dim = dim
         self.sampling_period = sampling_period
         self.limit = limit
@@ -84,7 +84,7 @@ class Agent(object):
             新状态
         """
         assert len(new_state) == self.dim, '位置定义与维度不符'
-        self.state = new_state
+        self.state = np.array(new_state)
         self.range_check()
         return self.state
 
@@ -117,7 +117,7 @@ class AgentDoubleInt2D(Agent):
         self.A = np.eye(self.dim) if A is None else A
         self.W = W
 
-    def update(self):
+    def update(self, agent_pos=None):
         """状态更新
 
         Returns
@@ -188,7 +188,7 @@ class AgentDoubleInt2D_Nonlinear(AgentDoubleInt2D):
             collision_func, margin=margin, A=A, W=W)
         self.obs_check_func = obs_check_func
 
-    def update(self):
+    def update(self, agent_pos=None):
         # 状态更新
         new_state = np.matmul(self.A, self.state)
         if self.W is not None:
@@ -278,7 +278,7 @@ class AgentSE2(Agent):
                  margin=METADATA['margin']):
         Agent.__init__(self, init_state, 3, sampling_period, limit, collision_func, margin=margin)
 
-    def update(self, control_input):
+    def update(self, control_input, margin_pos=None):
         """状态更新
 
         Parameters
@@ -303,7 +303,7 @@ class AgentSE2(Agent):
             # 如果碰撞，位置保持不变
             is_col = True
             new_state[:2] = self.state[:2]
-                
+        
         self.state = new_state
         self.range_check()
 

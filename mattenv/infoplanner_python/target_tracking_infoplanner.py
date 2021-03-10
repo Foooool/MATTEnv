@@ -2,17 +2,17 @@ import numpy as np
 from numpy import linalg as LA
 import os
 
-from ttenv.maps import map_utils
-import ttenv.util as util
+from mattenv.maps import map_utils
+import mattenv.util as util
 
-from ttenv.agent_models import Agent, AgentDoubleInt2D_Nonlinear
-from ttenv.metadata import METADATA
-from ttenv.target_tracking import TargetTrackingEnv1
-from ttenv.target_tracking import TargetTrackingBase
-from ttenv.belief_tracker import KFbelief
+from mattenv.agent_models import Agent, AgentDoubleInt2D_Nonlinear
+from mattenv.metadata import METADATA
+from mattenv.target_tracking import TargetTrackingEnv1
+from mattenv.target_tracking import TargetTrackingBase
+from mattenv.belief_tracker import KFbelief
 
-import ttenv.infoplanner_python as infoplanner
-from ttenv.infoplanner_python.infoplanner_binding import Configure, Policy
+import mattenv.infoplanner_python as infoplanner
+from mattenv.infoplanner_python.infoplanner_binding import Configure, Policy
 
 
 class BeliefWrapper(object):
@@ -51,7 +51,7 @@ class FeedTargetWrapper(TargetWrapper):
 class TargetTrackingInfoPlanner2(TargetTrackingEnv1):
     """
     Target tracking envrionment using InfoPlanner algorithm for the agent model.
-    Target and belief models use ttenv functions.    
+    Target and belief models use mattenv functions.    
     """
     def __init__(self, num_targets=1, map_name='empty', is_training=True, known_noise=True):
         TargetTrackingEnv1.__init__(self, num_targets=num_targets,

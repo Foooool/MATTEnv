@@ -5,7 +5,7 @@ import scipy.io as sio
 import numpy as np
 from gym import Wrapper
 
-from ttenv.metadata import METADATA
+from mattenv.metadata import METADATA
 
 class Ros(Wrapper):
     def __init__(self, env, skip=3):

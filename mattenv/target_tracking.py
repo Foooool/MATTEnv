@@ -37,14 +37,14 @@ from gym import spaces, logger
 import numpy as np
 from numpy import linalg as LA
 
-from ttenv.base import TargetTrackingBase
-from ttenv.maps import map_utils
-from ttenv.agent_models import *
-from ttenv.policies import *
-from ttenv.belief_tracker import KFbelief, UKFbelief
-from ttenv.metadata import METADATA
-import ttenv.util as util
-from ttenv.base import TargetTrackingBase
+from mattenv.base import TargetTrackingBase
+from mattenv.maps import map_utils
+from mattenv.agent_models import *
+from mattenv.policies import *
+from mattenv.belief_tracker import KFbelief, UKFbelief
+from mattenv.metadata import METADATA
+import mattenv.util as util
+from mattenv.base import TargetTrackingBase
 
 
 class TargetTrackingEnv0(TargetTrackingBase):

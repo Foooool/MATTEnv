@@ -14,11 +14,11 @@ from gym import spaces, logger
 import numpy as np
 from numpy import linalg as LA
 
-from ttenv.agent_models import *
-from ttenv.policies import *
-from ttenv.belief_tracker import KFbelief
-import ttenv.util as util
-from ttenv.target_tracking import TargetTrackingEnv1
+from mattenv.agent_models import *
+from mattenv.policies import *
+from mattenv.belief_tracker import KFbelief
+import mattenv.util as util
+from mattenv.target_tracking import TargetTrackingEnv1
 
 class TargetTrackingEnv4(TargetTrackingEnv1):
     def __init__(self, num_targets=1, map_name='empty', is_training=True,
